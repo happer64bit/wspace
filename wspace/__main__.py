@@ -35,6 +35,7 @@ def argument():
             db = utils.database.Initialize()
             db.__create__()
             sys.exit()
+
         else:
             print(f"[INIT] {colorama.Fore.GREEN} ALREADY INITIALIZE {colorama.Fore.RESET}")
             sys.exit()
@@ -64,33 +65,36 @@ def argument():
         print(f"[TASK] {colorama.Fore.GREEN} ADDED TASK TO DATABASE: {args.task} {colorama.Fore.RESET}")
     
     if args.command == "tasks":
-        with open(".wspace/keys.json", "r") as f:
-            data = json.load(f)
+        with open(".wspace/keys.json", "r") as file:
+            data = json.load(file)
 
         table = PrettyTable()
         count = 0
 
-        table.field_names = ["ID", "Tasks"]
+        table.field_names = ["ID", "VALUE"]
         
         for key in data["maps"]:
-            with open(f".wspace/{key}.hashed", "r") as f:
-                task = bytes.fromhex(f.read()).decode("utf-8")
+            with open(f".wspace/{key}.hashed", "r") as file:
+                task = bytes.fromhex(file.read()).decode("utf-8")
                 table.add_row([count.__str__(), task])
+
             count += 1
+
         print(table)
 
     if args.command == "del":
         try:
-            with open('.wspace/keys.json', 'r') as f:
-                data = json.load(f)
+            with open('.wspace/keys.json', 'r') as file:
+                data = json.load(file)
 
             
             removed_ele = data["maps"].pop(int(args.index))
 
-            with open('.wspace/keys.json', 'w') as f:
-                json.dump(data, f)
+            with open('.wspace/keys.json', 'w') as file:
+                json.dump(data, file)
             os.remove(f".wspace/{removed_ele}.hashed")
         except IndexError:
             print(f"[DELE] {colorama.Fore.RED} OUT OF LENGTH {colorama.Fore.RESET}")
+
 if __name__ == "__main__":
     argument()
