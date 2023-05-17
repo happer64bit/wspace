@@ -48,7 +48,7 @@ def argument():
         
         if not isExist:
             print(f"[INIT] {colorama.Fore.GREEN} CREATING DATABASE {colorama.Fore.RESET}")
-            db = utils.database.Initialize()
+            db = Initialize()
             db.__create__()
             sys.exit()
 
