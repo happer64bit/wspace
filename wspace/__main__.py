@@ -4,6 +4,7 @@ import sys
 import os
 import json
 import binascii
+from prettytable import PrettyTable
 
 import utils.database
 
@@ -15,9 +16,15 @@ def argument():
     subparsers = parser.add_subparsers(dest="command")
 
     init_parser = subparsers.add_parser("init", help="Initialize WSpace Database")
+    
+    tasks_parser = subparsers.add_parser("tasks", help="List All Tasks from Database")
+    
     add_parser = subparsers.add_parser("add", help="Add Tasks to WSpace Database")
     add_parser.add_argument("task", help="The task to be added to the database")
-
+    
+    del_parser = subparsers.add_parser("del", help="Delete task from WSpace Database")
+    del_parser.add_argument("index", help="The task id del")
+    
     args = parser.parse_args()
 
     if args.command == "init":
@@ -55,6 +62,35 @@ def argument():
             f.write(args.task.encode().hex())
 
         print(f"[TASK] {colorama.Fore.GREEN} ADDED TASK TO DATABASE: {args.task} {colorama.Fore.RESET}")
+    
+    if args.command == "tasks":
+        with open(".wspace/keys.json", "r") as f:
+            data = json.load(f)
 
+        table = PrettyTable()
+        count = 0
+
+        table.field_names = ["ID", "Tasks"]
+        
+        for key in data["maps"]:
+            with open(f".wspace/{key}.hashed", "r") as f:
+                task = bytes.fromhex(f.read()).decode("utf-8")
+                table.add_row([count.__str__(), task])
+            count += 1
+        print(table)
+
+    if args.command == "del":
+        try:
+            with open('.wspace/keys.json', 'r') as f:
+                data = json.load(f)
+
+            
+            removed_ele = data["maps"].pop(int(args.index))
+
+            with open('.wspace/keys.json', 'w') as f:
+                json.dump(data, f)
+            os.remove(f".wspace/{removed_ele}.hashed")
+        except IndexError:
+            print(f"[DELE] {colorama.Fore.RED} OUT OF LENGTH {colorama.Fore.RESET}")
 if __name__ == "__main__":
     argument()
