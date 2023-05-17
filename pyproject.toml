@@ -1,16 +1,11 @@
-[tool.poetry]
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
 name = "wspace"
 version = "0.1.0"
+readme = "README.md"
 description = "Task Management for every project"
-authors = ["happer happer64bit@gmail.com"]
+authors = [{ name = "Happer", email = "happer64bit@gmail.com" }]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-prettytable = "^2.2.0"
-
-[tool.poetry.dev-dependencies]
-pytest = "^6.2.4"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
