@@ -1,4 +1,4 @@
-# WSpace (Task Manager)
+# WSpace (Todo Manager)
 
 ## Installion
 ```
