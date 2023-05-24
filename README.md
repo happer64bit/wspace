@@ -1,4 +1,4 @@
-# WSpace (Todo Manager)
+# WSpace (Todo Manager) - ⚠️ Not on pypi yet
 
 ## Installion
 ```
