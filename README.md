@@ -2,7 +2,7 @@
 
 ## Installion
 ```
-pip install wspace
+pip install https://github.com/happer64bit/wspace.git
 ```
 
 ## Usage
