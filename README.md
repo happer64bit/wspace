@@ -1,5 +1,8 @@
 # WSpace (Todo Manager) - ⚠️ Not on pypi yet
 
+## Requirements
+* ### `Python 3.7` for higher
+
 ## Installion
 ```
 pip install https://github.com/happer64bit/wspace/archive/refs/heads/main.zip
